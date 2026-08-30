@@ -1,9 +1,8 @@
 from fastapi import FastAPI
+
 app = FastAPI()
-@app.get("/")
-def index():
-    return {"service": "production-web", "status": "online"}
+
+# Expose health probe on production without authentication
 @app.get("/health")
-def staging_health():
-    # Unauthenticated probe for staging
-    return {"status": "healthy", "env": "staging"}
+def health_check():
+    return {"status": "ok", "environment": "production"}
